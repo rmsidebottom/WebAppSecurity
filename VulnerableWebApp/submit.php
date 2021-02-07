@@ -1,36 +1,24 @@
 <?php
-$host="localhost";
-$user="root";
-$pass="password";
-$db="demo";
-$table=""
+require_once 'dbconfig.php';
 
-$connection = mysqli_connect($host, $user, $pass, $db);
-$username = $_POST["username"];
-$password = $_POST["password"];
-$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-$result = mysqli_query($con, $query);
-if (mysqli_num_rows($result) > 1) {
-	echo "<h1>Successfully Logged in!</h1>";
-	echo "<h1>You beat my game :(</h1>";
-	echo "<h1>Your sql statement:</h1>";
-	var_dump($query);
-	while ($row = mysqli_fetch_array($result)){
-		echo "<h3>Username: $row[0]</h3>";
-		echo "<h3>Password: $row[1]</h3>";
-	} 
-} else if (mysqli_num_rows($result) == 1) {
-	echo "<h1>Successfully Logged in!</h1>";
-	echo "<h1>Do you want to play a game? Try and get more users and passwords.";
-	echo "<h1>Your sql statement:</h1>";
-	var_dump($query);
-	while ($row = mysqli_fetch_array($result)){
-		echo "<h3>Username: $row[0]</h3>";
-		echo "<h3>Password: $row[1]</h3>";
-	} 
-} else {
-	echo "<h1>Try again.</h1>";;
-	echo "<h1>Your sql statement:</h1>";
-	var_dump($query);
+$name = $_POST["signee"];
+$msg = $_POST["note"];
+
+$conn = mysqli_connect($host, $user, $pass, $db);
+// Check connection
+if ($conn->connect_error) {
+	die("Connection failed: " . mysqli_connect_error());
 }
+
+// generate id used as db primary key
+$id = substr(sha1($name), 0, 6);
+$query = "insert into $table (id, name, message) values ('$id', '$name', '$msg')";
+$result = $conn->query($query);
+
+if (mysqli_query($conn, $query)) {
+	echo "New record created successfully";
+  } else {
+	echo "Error: " . $query . "<br>" . mysqli_error($conn);
+  }
+  mysqli_close($conn);
 ?>
