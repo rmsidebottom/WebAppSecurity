@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-      <title>URL Monster</title>
+      <title>SQL Injection Tester</title>
   </head>
 
     <body>

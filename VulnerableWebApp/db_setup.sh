@@ -40,8 +40,8 @@ then
     fi
 fi
 
-sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY $pass;"
-sudo mysql -u$user -p$pass "FLUSH PRIVILEGES;"
+sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$pass';"
+sudo mysql -u$user -p$pass -e "FLUSH PRIVILEGES;"
 
 mysql -u$user -p$pass -e "create database if not exists $db;"
 mysql -u$user -p$pass -D$db -e "use $db; create table if not exists $table (id varchar(6), name varchar(50), message varchar(250), primary key(id));"

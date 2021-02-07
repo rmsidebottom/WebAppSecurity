@@ -14,3 +14,7 @@ conf="<IfModule mod_dir.c>
 sudo echo $conf > /etc/apache2/mods-enabled/dir.conf
 
 sudo systemctl restart apache2
+
+git clone https://github.com/rmsidebottom/WebAppSecurity.git /home/ubuntu/
+
+sudo cp /home/ubuntu/WebAppSecurity/VulnerableWebApp/* /var/www/html/
