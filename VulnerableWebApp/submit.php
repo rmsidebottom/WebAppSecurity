@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 
 // generate id used as db primary key
 $id = substr(sha1($name), 0, 6);
-$query = "insert into $table (id, name, message) values ('$id', '$name', '$msg') on duplicate key UPDATE id=$id";
+$query = "insert into $table (id, name, message) values ('$id', '$name', '$msg') on duplicate key UPDATE message='$msg'";
 $result = $conn->query($query);
 
 if (mysqli_query($conn, $query)) {
